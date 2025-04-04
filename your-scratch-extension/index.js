@@ -1,3 +1,4 @@
+const audioEngine = Scratch.vm.runtime.audioEngine;
 const BlockType = require('../../extension-support/block-type');
 const ArgumentType = require('../../extension-support/argument-type');
 const TargetType = require('../../extension-support/target-type');
@@ -5,11 +6,6 @@ const TargetType = require('../../extension-support/target-type');
 class Scratch3YourExtension {
 
     constructor (runtime) {
-        import('tone')
-          .then((toneModule) => {
-            this.tone = toneModule.tone;
-          });
-      }
 
     /**
      * Returns the metadata about your extension.
@@ -20,7 +16,7 @@ class Scratch3YourExtension {
             id: 'yourScratchExtension',
 
             // name that will be displayed in the Scratch UI
-            name: 'Demo',
+            name: 'ScratchSpeech',
 
             // colours to use for your extension blocks
             color1: '#000099',
@@ -34,7 +30,7 @@ class Scratch3YourExtension {
             blocks: [
                 {
                     // name of the function where your block code lives
-                    opcode: 'myFirstBlock',
+                    opcode: 'speak',
 
                     // type of block - choose from:
                     //   BlockType.REPORTER - returns a value, like "direction"
@@ -44,7 +40,6 @@ class Scratch3YourExtension {
                     blockType: BlockType.COMMAND,
 
                     // label to display on the block
-                    text: 'My first block [MY_STRING]',
 
                     // true if this block should end a stack
                     terminal: false,
@@ -57,9 +52,6 @@ class Scratch3YourExtension {
 
                     // arguments used in the block
                     arguments: {
-                        MY_STRING: {
-                            // default value before the user sets something
-                            defaultValue: 'hello',
 
                             // type/shape of the parameter - choose from:
                             //     ArgumentType.ANGLE - numeric value with an angle picker
@@ -81,13 +73,6 @@ class Scratch3YourExtension {
      * implementation of the block with the opcode that matches this name
      *  this will be called when the block is used
      */
-    myFirstBlock ({ MY_STRING }) {
-        const player = new Tone.Player(
-            "https://thenoceboeffect.github.io/sounds/a.ogg"
-        ).toDestination();
-        Tone.loaded().then(() => {
-            player.start();
-        });
     }
 }
 
